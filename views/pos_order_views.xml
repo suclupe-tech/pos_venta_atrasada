@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_pos_order_form_regularizacion" model="ir.ui.view">
+        <field name="name">pos.order.form.regularizacion</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <group string="Regularización">
+                    <field name="es_regularizacion" readonly="1"/>
+                    <field name="fecha_real_venta" readonly="1"/>
+                    <field name="tipo_regularizacion" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

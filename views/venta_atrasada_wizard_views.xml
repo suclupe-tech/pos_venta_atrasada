@@ -1,0 +1,49 @@
+<odoo>
+    <record id="view_venta_atrasada_wizard_form" model="ir.ui.view">
+        <field name="name">venta.atrasada.wizard.form</field>
+        <field name="model">venta.atrasada.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Registrar venta atrasada">
+                <group>
+                    <field name="pos_config_id"/>
+                    <field name="tipo_documento"/>
+                    <field name="fecha_real"/>
+                    <field name="metodo_pago_id"/>
+                </group>
+
+                <field name="line_ids">
+                    <list editable="bottom">
+                        <field name="product_id"/>
+                        <field name="qty"/>
+                        <field name="price_unit"/>
+                    </list>
+                </field>
+
+                <footer>
+                    <button name="action_crear_venta"
+                            type="object"
+                            string="Crear venta POS"
+                            class="btn-primary"/>
+
+                    <button string="Cancelar"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_venta_atrasada_wizard" model="ir.actions.act_window">
+        <field name="name">Registrar venta atrasada</field>
+        <field name="res_model">venta.atrasada.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_venta_atrasada_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_venta_atrasada_wizard"
+                name="Registrar venta atrasada"
+                parent="point_of_sale.menu_point_root"
+                action="action_venta_atrasada_wizard"
+                sequence="90"/>
+</odoo>
