@@ -6,9 +6,12 @@
             <form string="Registrar venta atrasada">
                 <group>
                     <field name="pos_config_id"/>
+                    <field name="partner_id"/>
                     <field name="tipo_documento"/>
                     <field name="fecha_real"/>
-                    <field name="metodo_pago_id"/>
+                    <field name="available_payment_method_ids" invisible="1"/>
+                    <field name="metodo_pago_id"
+                            domain="[('id', 'in', available_payment_method_ids)]"/>
                 </group>
 
                 <field name="line_ids">
@@ -23,7 +26,9 @@
                     <button name="action_crear_venta"
                             type="object"
                             string="Crear venta POS"
-                            class="btn-primary"/>
+                            class="btn-primary"
+                            data-hotkey="q"
+                            confirm="¿Deseas registrar esta venta atrasada?"/>
 
                     <button string="Cancelar"
                             class="btn-secondary"

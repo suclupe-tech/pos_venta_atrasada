@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_pos_config_form_venta_atrasada" model="ir.ui.view">
+        <field name="name">pos.config.form.venta.atrasada</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Venta Atrasada">
+                    <field name="venta_atrasada_sequence_nota_venta_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
