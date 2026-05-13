@@ -9,9 +9,8 @@
                     <field name="partner_id"/>
                     <field name="tipo_documento"/>
                     <field name="fecha_real"/>
-                    <field name="available_payment_method_ids" invisible="1"/>
                     <field name="metodo_pago_id"
-                    domain="[('id', 'in', available_payment_method_ids.ids)]"/>
+                    domain="[('id', 'in', pos_config_id.payment_method_ids)]"/>
                 </group>
 
                 <field name="line_ids">
