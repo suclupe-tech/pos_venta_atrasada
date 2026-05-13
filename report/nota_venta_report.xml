@@ -21,17 +21,19 @@
                             width: 80mm;
                             margin: 0 auto;
                             color: #000;
-                            font-weight: bold;">
+                            font-weight: 800;">
 
                     <!-- HEADER -->
                     <div style="text-align:center; margin-bottom:8px;">
 
                         <t t-if="o.company_id.logo">
-                            <img t-att-src="'/web/image/res.company/%s/logo' % o.company_id.id"
-                            style="max-width:160px; max-height:70px; margin-bottom:6px;"/>
+                            <div style="text-align:center; margin-bottom:6px;">
+                                <img t-att-src="image_data_uri(o.company_id.logo)"
+                                    style="max-width:140px; max-height:65px; display:inline-block;"/>
+                            </div>
                         </t>
 
-                        <div style="font-size:16px; font-weight:bold;">
+                        <div style="font-size:18px; font-weight:bold;">
                             <t t-esc="o.company_id.name"/>
                         </div>
 
@@ -39,12 +41,19 @@
                             RUC: <t t-esc="o.company_id.vat"/>
                         </div>
 
-                        <div style="font-size:12px; font-weight:bold;">
+                        <div style="font-size:13px; font-weight:bold;">
                             <t t-esc="o.config_id.name"/>
                         </div>
 
+                        <br/>
+                        <t t-if="o.config_id.receipt_header">
+                            <span style="font-size:10px; font-weight:bold;">
+                                <t t-esc="o.config_id.receipt_header"/>
+                            </span>
+                        </t>
+
                         <div style="margin-top:5px;
-                                    font-size:15px;
+                                    font-size:18px;
                                     font-weight:bold;
                                     border-top:1px dashed #000;
                                     border-bottom:1px dashed #000;
@@ -52,57 +61,39 @@
                             NOTA DE VENTA
                         </div>
 
-                        <div style="font-size:14px; font-weight:bold; margin-top:5px;">
+                        <div style="font-size:17px; font-weight:bold; margin-top:5px;">
                             <t t-esc="o.sunat_document_number or o.name"/>
                         </div>
 
                     </div>
 
                     <!-- DATOS -->
-                    <table style="width:100%; margin-bottom:8px; font-size:11px;">
-
+                    <table style="width:100%; margin-bottom:6px; font-size:11px; font-weight:bold; color:#000;">
                         <tr>
-                            <td><strong>Fecha:</strong></td>
-                            <td style="text-align:right;">
-                                <t t-esc="context_timestamp(o.date_order).strftime('%d/%m/%Y')"/>
+                            <td style="text-align:left;">
+                                Fecha: <t t-esc="context_timestamp(o.date_order).strftime('%d/%m/%Y')"/>
                             </td>
                         </tr>
-
                         <tr>
-                            <td><strong>Hora:</strong></td>
-                            <td style="text-align:right;">
-                                <t t-esc="context_timestamp(o.date_order).strftime('%H:%M')"/>
+                            <td style="text-align:left;">
+                                Hora: <t t-esc="context_timestamp(o.date_order).strftime('%H:%M')"/>
                             </td>
                         </tr>
-
                         <tr>
-                            <td><strong>Fecha real:</strong></td>
-                            <td style="text-align:right;">
-                                <t t-esc="o.fecha_real_venta or ''"/>
+                            <td style="text-align:left;">
+                                Fecha real: <t t-esc="o.fecha_real_venta or ''"/>
                             </td>
                         </tr>
-
                         <tr>
-                            <td><strong>Cliente:</strong></td>
-                            <td style="text-align:right;">
-                                <t t-esc="o.partner_id.name or 'PUBLICO GENERAL'"/>
+                            <td style="text-align:left;">
+                                Cliente: <t t-esc="o.partner_id.name or 'CLIENTE VARIOS'"/>
                             </td>
                         </tr>
-
                         <tr>
-                            <td><strong>DNI/RUC:</strong></td>
-                            <td style="text-align:right;">
-                                <t t-esc="o.partner_id.vat or '00000000'"/>
+                            <td style="text-align:left;">
+                                DNI/RUC: <t t-esc="o.partner_id.vat or '00000000'"/>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td><strong>Tienda:</strong></td>
-                            <td style="text-align:right;">
-                                <t t-esc="o.config_id.name"/>
-                            </td>
-                        </tr>
-
                     </table>
 
                     <!-- PRODUCTOS -->
@@ -116,9 +107,9 @@
                                     border-collapse:collapse;">
 
                             <thead>
-                                <tr>
-                                    <th style="text-align:left; width:45%;">Producto</th>
-                                    <th style="text-align:center; width:15%;">Cant</th>
+                                <tr style="font-weight:bold; color:#000;">
+                                    <th style="text-align:left; width:14%;">Cant.</th>
+                                    <th style="text-align:left; width:46%;">Producto</th>
                                     <th style="text-align:right; width:20%;">P.Unit</th>
                                     <th style="text-align:right; width:20%;">Total</th>
                                 </tr>
@@ -126,24 +117,22 @@
 
                             <tbody>
 
-                                <tr t-foreach="o.lines" t-as="line">
-
-                                    <td style="padding:3px 0;">
-                                        <t t-esc="line.product_id.display_name"/>
+                                <tr t-foreach="o.lines" t-as="line" style="font-weight:bold; color:#000;">
+                                    <td style="text-align:left;">
+                                        <t t-esc="line.qty"/>
                                     </td>
 
-                                    <td style="text-align:center;">
-                                        <t t-esc="line.qty"/>
+                                    <td style="text-align:left; padding:3px 0;">
+                                        <t t-esc="line.product_id.display_name"/>
                                     </td>
 
                                     <td style="text-align:right;">
                                         <t t-esc="'%.2f' % line.price_unit"/>
                                     </td>
 
-                                    <td style="text-align:right; font-weight:bold;">
+                                    <td style="text-align:right;">
                                         <t t-esc="'%.2f' % line.price_subtotal_incl"/>
                                     </td>
-
                                 </tr>
 
                             </tbody>
@@ -180,7 +169,7 @@
 
                         Gracias por su compra<br/>
                         Documento interno<br/>
-                        No válido para crédito fiscal
+                        No valido para credito fiscal
 
                     </div>
 
