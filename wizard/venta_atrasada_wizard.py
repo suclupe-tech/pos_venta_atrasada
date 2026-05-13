@@ -65,13 +65,7 @@ class VentaAtrasadaWizard(models.TransientModel):
 
         if self.tipo_documento == "boleta" and not self.partner_id:
             raise UserError("Debes seleccionar un cliente para emitir una boleta.")
-
-        for line in self.line_ids:
-            if line.qty <= 0:
-                raise UserError("La cantidad debe ser mayor a cero.")
-            if line.price_unit < 0:
-                raise UserError("El precio no puede ser negativo.")
-
+        
         if self.metodo_pago_id not in self.pos_config_id.payment_method_ids:
             raise UserError("El método de pago no pertenece a la tienda seleccionada.")
 
@@ -90,6 +84,17 @@ class VentaAtrasadaWizard(models.TransientModel):
 
         order_lines = []
         for line in self.line_ids:
+
+            if line.qty <= 0:
+                raise UserError("La cantidad debe ser mayor a cero.")
+
+            if line.price_unit < 0:
+                raise UserError("El precio no puede ser negativo.")
+
+            if line.product_id.qty_available < line.qty:
+                raise UserError(
+                    f"No hay stock suficiente para {line.product_id.display_name}"
+                )
             order_lines.append(
                 (
                     0,

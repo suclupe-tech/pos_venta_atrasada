@@ -47,8 +47,9 @@
     </record>
 
     <menuitem id="menu_venta_atrasada_wizard"
-                name="Registrar venta atrasada"
-                parent="point_of_sale.menu_point_root"
-                action="action_venta_atrasada_wizard"
-                sequence="90"/>
+            name="Registrar venta atrasada"
+            parent="point_of_sale.menu_point_root"
+            action="action_venta_atrasada_wizard"
+            sequence="90"
+            groups="point_of_sale.group_pos_manager"/>
 </odoo>

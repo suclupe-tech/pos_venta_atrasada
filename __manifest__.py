@@ -12,7 +12,7 @@
         "views/venta_atrasada_wizard_views.xml",
         "views/pos_order_views.xml",
         "views/pos_config_views.xml",
-        "report/nota_venta_report.xml"
+        "report/nota_venta_report.xml",
     ],
     "installable": True,
     "application": False,
