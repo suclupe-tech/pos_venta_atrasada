@@ -11,7 +11,7 @@
                     <field name="fecha_real"/>
                     <field name="available_payment_method_ids" invisible="1"/>
                     <field name="metodo_pago_id"
-                            domain="[('id', 'in', available_payment_method_ids)]"/>
+                    domain="[('id', 'in', available_payment_method_ids.ids)]"/>
                 </group>
 
                 <field name="line_ids">
