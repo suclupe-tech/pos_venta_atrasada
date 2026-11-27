@@ -60,7 +60,10 @@ class VentaAtrasadaWizard(models.TransientModel):
         if not self.line_ids:
             raise UserError("Debes agregar al menos un producto.")
 
-        if self.fecha_real and self.fecha_real > fields.Date.today():
+        # context_today = fecha de hoy en Perú (zona del usuario). Date.today()
+        # usa la fecha del servidor: en la nube (UTC), desde las 7 p. m. ya es
+        # 'mañana' y aceptaría una fecha futura.
+        if self.fecha_real and self.fecha_real > fields.Date.context_today(self):
             raise UserError("No puedes registrar una venta con fecha futura.")
 
         if self.tipo_documento == "boleta" and not self.partner_id:
