@@ -57,6 +57,15 @@ class VentaAtrasadaWizard(models.TransientModel):
     def action_crear_venta(self):
         self.ensure_one()
 
+        # Módulo de la etapa de implementación (registrar notas de venta
+        # manuales). Emite comprobantes con la misma serie de la caja, así
+        # que queda reservado al administrador. Se valida aquí además del
+        # menú, porque la acción se puede abrir sin pasar por el menú.
+        if not self.env.user.has_group("base.group_system"):
+            raise UserError(
+                "Solo el administrador del sistema puede registrar ventas atrasadas."
+            )
+
         if not self.line_ids:
             raise UserError("Debes agregar al menos un producto.")
 
